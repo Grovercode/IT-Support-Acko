@@ -1,0 +1,22 @@
+{
+    "user" :[
+        {
+            "id": "1",
+            "customer_name" : "Adam",
+            "Status": "in-progress",
+            "Email" : "xyz@acko.tech.com"
+        },
+        {
+            "id": "2",
+            "customer_name" : "Adam2",
+            "Status": "in-progress",
+            "Email" : "xyz@acko.tech.com"
+        },
+        {
+            "id": "3",
+            "customer_name" : "Adam3",
+            "Status": "in-progress",
+            "Email" : "xyz@acko.tech.com"
+        }
+    ]
+}
