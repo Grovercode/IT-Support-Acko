@@ -10,16 +10,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector} from 'react-redux'; 
-import { loadUsers } from '../redux/actions';
+import { deleteUser, loadUsers } from '../redux/actions';
 
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import { Edit } from './Edit';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: '#7C47E1',
     color: theme.palette.common.white,
+    fontSize: '16px',
+    fontWeight: '600',
+    padding: 12,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -36,15 +40,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
-}
+
 
 
 
@@ -58,6 +54,14 @@ export const Home = () => {
   }, []);
 
   const{users} = useSelector(state=> state.data)
+
+  const handleDelete = (id) =>{
+    if(window.confirm("Are you sure you want to delete?"))
+    {
+      console.log(`Delete initiated for for ${id}` )
+      dispatch(deleteUser(id))
+    }
+  }
   
   return (
     <div className='content'>
@@ -91,16 +95,18 @@ export const Home = () => {
               <StyledTableCell align="center" component="th" scope="row">
                 {user.id}
               </StyledTableCell>
-              <StyledTableCell align="center">{user.customer_name}</StyledTableCell>
-              <StyledTableCell align="center">{user.Status}</StyledTableCell>
-              <StyledTableCell align="center">{user.Email}</StyledTableCell>
+              <StyledTableCell align="center">{user.customerName}</StyledTableCell>
+              <StyledTableCell align="center">{user.requestStatus}</StyledTableCell>
+              <StyledTableCell align="center">{user.customerEmail}</StyledTableCell>
               <StyledTableCell align="center">
                 <ButtonGroup
                     disableElevation
                     variant="contained"
                     aria-label="Disabled elevation buttons">
-                    <Button>Edit</Button>
-                    <Button>Delete</Button>
+                    <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`edit/${user.id}`}>Edit</Link>
+                    <p style={{color: 'red'}} color='secondary'
+                    onClick={()=> handleDelete(user.id)}
+                    >Delete</p>
                 </ButtonGroup>
               </StyledTableCell>
             </StyledTableRow>
