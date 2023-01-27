@@ -103,7 +103,7 @@ export const Home = () => {
                     disableElevation
                     variant="contained"
                     aria-label="Disabled elevation buttons">
-                    <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`edit/${user.id}`}>Edit</Link>
+                    <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`request/${user.id}`}>Edit</Link>
                     <p style={{color: 'red'}} color='secondary'
                     onClick={()=> handleDelete(user.id)}
                     >Delete</p>

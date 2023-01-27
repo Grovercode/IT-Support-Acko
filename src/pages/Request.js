@@ -2,10 +2,13 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { margin } from '@mui/system';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getSingleUser } from '../redux/actions';
 
 export const Request = () => {
   const [state, setState] = useState({
@@ -25,6 +28,9 @@ export const Request = () => {
   })
 
   const [error, setError] = useState("");
+
+  let {id} = useParams()
+  const {user} = useSelector(state => state.data)
 
   const handleInputChange = (e) =>{
     let {name, value} = e.target
@@ -90,10 +96,13 @@ export const Request = () => {
     else{
       console.log({state});
       dispatch(addUser(state))
+
       navigate('/')
     }
 
   }
+
+  
 
 
   const {customerName, customerPhone, 
@@ -101,6 +110,28 @@ export const Request = () => {
 
     const {nameHelp, phoneHelp, emailHelp , statusHelp,
     detailsHelp} = helpers
+
+    useEffect(() => {
+      dispatch(getSingleUser(id))
+    }, [])
+
+    useEffect(() => {
+      if(id && user)
+      {
+        
+        setState({...user})
+      }
+      else 
+      {
+        setState({
+          customerName: "",
+      customerPhone: "",
+      customerEmail: "",
+      requestStatus: "",
+      requestDetails: "",
+        })
+      }
+    }, [user])
 
   return (
     <div className='content'>
