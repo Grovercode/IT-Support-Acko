@@ -19,6 +19,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
   }
 
   .links{
@@ -68,14 +69,64 @@ body {
   }
 
   .createButton{
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    border:white;
+    cursor: pointer;
     background: #FFFFFF;
-    border: #F4F4FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    display: inline-block;
+    padding: 5px 30px;
   }
 
   .introText{
     font-size: 20px;
     color: #4A4A4A;
     font-weight: 600;
+  }
+
+  .requestIntroText
+  {
+    font-size: 20px;
+    color: #4A4A4A;
+    font-weight: 600;
+  }
+
+  .reqForm
+  {
+    margin-top: 20px;
+  }
+
+  .leftInput{
+    margin-right: 100px;
+  }
+
+  .detailsInput
+  {
+    width: 100%;
+    background: #F3F3F3;
+    border-radius: 4px;
+
+  }
+  .box{
+    
+    width: 600px;
+    margin: 15px 0px 40px 0px;
+    padding: 30px ;
+    background: #FFFFFF;
+
+  }
+
+  .inputContainer
+  {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
   }
 
 
