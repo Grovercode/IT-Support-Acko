@@ -16,6 +16,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { Edit } from './Edit';
 
+import triangle from '../assests/icons/triangle.svg'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -75,6 +76,11 @@ export const Home = () => {
       <div className='reqbutton'>
       <Link className='link' to='request'> + New Request</Link>
       </div>
+      </div>
+
+      <div className='openReqMessage'>
+        <img className='triangle' src={triangle}/>
+        <div className='openReqText'>My Open Requests</div>
       </div>
 
       

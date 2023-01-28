@@ -3,12 +3,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../redux/actions';
+import { addUser, updateUser } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { margin } from '@mui/system';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getSingleUser } from '../redux/actions';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
 
 export const Request = () => {
   const [state, setState] = useState({
@@ -21,7 +24,7 @@ export const Request = () => {
 
   const [helpers, setHelpers] = useState({
     nameHelp: "",
-    phoneHelp: "wrong",
+    phoneHelp: "",
     emailHelp: "",
     statusHelp: "",
     detailsHelp: "",
@@ -29,8 +32,18 @@ export const Request = () => {
 
   const [error, setError] = useState("");
 
+  let introMessage = "Create a service request"
+  let buttonText = "Create"
   let {id} = useParams()
   const {user} = useSelector(state => state.data)
+
+  if(id)
+  {
+    introMessage = "Edit a service request"
+    buttonText = "Edit"
+  }
+
+  
 
   const handleInputChange = (e) =>{
     let {name, value} = e.target
@@ -42,8 +55,6 @@ export const Request = () => {
     {
       return true
     }
-    
-
     return false;
   }
 
@@ -75,6 +86,7 @@ export const Request = () => {
     {
       setError("Please fill all the input fields")
     }
+    /*
 
     if(!customerName)
     {
@@ -90,12 +102,15 @@ export const Request = () => {
     {
       setHelpers({...helpers, emailHelp : "Fix"})
     }
-
-    
+    */
 
     else{
-      console.log({state});
-      dispatch(addUser(state))
+      console.log("the state to add is " + {state});
+
+      if(id)
+      dispatch(updateUser(state, id))
+
+      else dispatch(addUser(state))
 
       navigate('/')
     }
@@ -117,8 +132,7 @@ export const Request = () => {
 
     useEffect(() => {
       if(id && user)
-      {
-        
+      {        
         setState({...user})
       }
       else 
@@ -136,7 +150,7 @@ export const Request = () => {
   return (
     <div className='content'>
       {error}
-      <div className='requestIntroText'>Create a service request<br/></div>
+      <div className='requestIntroText'>{introMessage}<br/></div>
 
     
     
@@ -182,10 +196,30 @@ export const Request = () => {
       className='leftInput' onChange={handleInputChange} id="outlined-basic" label="Email" name='customerEmail' value={customerEmail} type ="email"/>
       
 
-      <TextField 
+      
+       {/* <TextField 
       fullWidth
       error = {checkEmpty(state.requestStatus)}
-      style={{padddingLeft : '30px'}} onChange={handleInputChange} id="outlined-basic" label="Status" name='requestStatus' value={requestStatus} type ="text"/>
+      style={{padddingLeft : '30px'}} onChange={handleInputChange} id="outlined-basic" label="Status" name='requestStatus' value={requestStatus} type ="text"/> 
+       */}
+      
+<FormControl fullWidth>
+        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+          Status
+        </InputLabel>
+        <NativeSelect
+          value={state.requestStatus? state.requestStatus : null}
+          onChange = {handleInputChange}
+          inputProps={{
+            name:'requestStatus',
+            id: 'uncontrolled-native',
+          }}
+        >
+          <option value={"In-Progress"}>In-Progress</option>
+          <option value={"Pending"}>Pending</option>
+          <option value={"Resolved"}>Resolved</option>
+        </NativeSelect>
+      </FormControl>
 
       </div>
       <br/>
@@ -218,7 +252,7 @@ export const Request = () => {
     {/* <Link className='link' to='/'> */}
     <div>
     <button  className='createButton' type='submit'>
-        Create
+        {buttonText}
       </button>
       </div>
       {/* </Link> */}
