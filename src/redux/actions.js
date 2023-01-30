@@ -17,7 +17,7 @@ const userAdded = ()=> ({
 
 const getUser = (user)=> ({
     type: types.GET_SINGLE_USER,
-    payload:user
+    payload:user.data[0]
 })
 
 const userUpdated = ()=> ({
@@ -40,7 +40,7 @@ export const deleteUser = (requestId) =>{
     
     return function(dispatch)
     {
-        axios.delete(`${"http://localhost:5000/user"}/${requestId}`)
+        axios.delete(`${"https://itservice.up.railway.app/api/request"}/${requestId}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(userDeleted())
@@ -54,7 +54,7 @@ export const addUser = (user) =>{
     
     return function(dispatch)
     {
-        axios.post(`${"http://localhost:5000/user"}`, user)
+        axios.post(`${"https://itservice.up.railway.app/api/request"}`, user)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(userAdded())
@@ -68,7 +68,7 @@ export const getSingleUser = (requestId) =>{
     
     return function(dispatch)
     {
-        axios.get(`${"http://localhost:5000/user"}/${requestId}`)
+        axios.get(`${"https://itservice.up.railway.app/api/request"}/${requestId}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(getUser(resp.data))
@@ -81,9 +81,9 @@ export const updateUser = (user, requestId) =>{
     
     return function(dispatch)
     {
-        axios.put(`${"http://localhost:5000/user"}/${requestId}`, user)
+        axios.put(`${"https://itservice.up.railway.app/api/request"}/${requestId}`, user)
         .then((resp) => {
-            console.log("resp", resp)
+            console.log("response for update is: ", resp)
             dispatch(userUpdated())
         }).catch(error => console.log("error"))
     }

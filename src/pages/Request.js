@@ -93,7 +93,7 @@ export const Request = () => {
     //let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!customerName || !customerPhone || !customerEmail || !requestStatus || !requestDetails)
     {
-      setError("Please fill all the input fields")
+      return setError("Please fill all the input fields")
     }
     
     
@@ -133,9 +133,10 @@ export const Request = () => {
       console.log("the state to add is " + {state});
 
       if(id)
-      dispatch(updateUser(state, id))
+       dispatch(updateUser(state, id))
 
-      else dispatch(addUser(state))
+       else 
+      dispatch(addUser(state))
 
       navigate('/')
     }
@@ -160,7 +161,7 @@ export const Request = () => {
     useEffect(() => {
       if(id && user)
       {        
-        setState({...user})
+        setState({...user, requestStatus: user?.requestStatus?.toUpperCase()})
       }
       else 
       {
@@ -176,8 +177,9 @@ export const Request = () => {
 
     if(state.requestStatus == "")
     {
-      setState({...state,requestStatus : "Pending"})
+      setState({...state,requestStatus : "OPEN"})
     }
+    
 
   return (
     <div className='content'>
@@ -208,6 +210,7 @@ export const Request = () => {
       id="outlined-basic" 
       label="Customer Name" 
       name='customerName'
+      disabled = {Boolean(id)}
        value = {customerName} 
        type ="text"/>
        
@@ -215,7 +218,11 @@ export const Request = () => {
       fullWidth
       error = {Boolean(helpers.phoneHelp)}
       helperText = {helpers.phoneHelp}
-       onChange={handleInputChange} id="outlined-basic" label="Phone" name='customerPhone' value={customerPhone} type ="tel"
+       onChange={handleInputChange} 
+       id="outlined-basic" 
+       label="Phone" 
+       name='customerPhone' value={customerPhone} type ="tel"
+       disabled = {Boolean(id)}
         />
       </div>
       <br/>
@@ -225,7 +232,14 @@ export const Request = () => {
       fullWidth
       error = {Boolean(helpers.emailHelp)}
       helperText = {helpers.emailHelp}
-      className='leftInput' onChange={handleInputChange} id="outlined-basic" label="Email" name='customerEmail' value={customerEmail} type ="text"/>
+      className='leftInput' 
+      onChange={handleInputChange}
+      id="outlined-basic" 
+      label="Email"
+      name='customerEmail' 
+      value={customerEmail} 
+      type ="text"
+      disabled = {Boolean(id)}/>
       
 
       
@@ -263,9 +277,9 @@ export const Request = () => {
           name ='requestStatus'
           onChange={handleInputChange}
         >
-          <MenuItem value={"Pending"}>Pending</MenuItem>
-          <MenuItem value={"In-Progress"}>In-Progress</MenuItem>
-          <MenuItem value={"Resolved"}>Resolved</MenuItem>
+          <MenuItem value={"OPEN"}>OPEN</MenuItem>
+          <MenuItem value={"IN_PROGRESS"}>IN_PROGRESS</MenuItem>
+          <MenuItem value={"CLOSED"}>CLOSED</MenuItem>
         </Select>
       </FormControl>
 
