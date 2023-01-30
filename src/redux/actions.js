@@ -27,7 +27,7 @@ const userUpdated = ()=> ({
 export const loadUsers = () =>{
     return function(dispatch)
     {
-        axios.get(`${"http://localhost:5000/user"}`)
+        axios.get(`${"https://itservice.up.railway.app/api/requests"}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(getUsers(resp.data))

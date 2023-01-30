@@ -74,6 +74,7 @@ export const Home = () => {
   }, []);
 
   const{users} = useSelector(state=> state.data)
+  console.log("users log is ", users.data)
 
   const handleDelete = (id) =>{
     dispatch(deleteUser(id))
@@ -117,10 +118,10 @@ export const Home = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users && users.map((user) => (
-            <StyledTableRow key={user.id}>
+          {users.data && users.data.map((user) => (
+            <StyledTableRow key={user.requestId}>
               <StyledTableCell align="center" component="th" scope="row">
-                {user.id}
+                {user.requestId}
               </StyledTableCell>
               <StyledTableCell align="center">{user.customerName}</StyledTableCell>
               <StyledTableCell align="center">{user.requestStatus}</StyledTableCell>
@@ -130,9 +131,9 @@ export const Home = () => {
                     disableElevation
                     variant="contained"
                     aria-label="Disabled elevation buttons">
-                    <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`request/${user.id}`}>Edit</Link>
+                    <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`request/${user.requestId}`}>Edit</Link>
                     <p style={{color: 'red'}} color='secondary'
-                    onClick={()=>handleClickOpen(user.id)}
+                    onClick={()=>handleClickOpen(user.requestId)}
                     //()=> handleDelete(user.id)
                     >Delete</p>
                 </ButtonGroup>
