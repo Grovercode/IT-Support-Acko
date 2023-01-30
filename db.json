@@ -1,92 +1,36 @@
 {
   "user": [
     {
-      "customerName": "NewName",
-      "customerPhone": "12312413123",
-      "customerEmail": "a@gmail.com",
-      "requestStatus": "In-Progress",
-      "requestDetails": "Hello",
-      "id": "ocYtAj8"
-    },
-    {
-      "customerName": "asd",
-      "customerPhone": "asd",
-      "customerEmail": "asdds",
-      "requestStatus": "asda",
-      "requestDetails": "sd",
-      "id": "noiNrrC"
-    },
-    {
-      "customerName": "hello",
-      "customerPhone": "1234567",
-      "customerEmail": "grover@gmail.com",
-      "requestStatus": "urgent",
-      "requestDetails": "Hello",
-      "id": "to8itvV"
-    },
-    {
-      "customerName": "ee",
-      "customerPhone": "123444",
+      "customerName": "Raj",
+      "customerPhone": "123444123123",
       "customerEmail": "dffff@gmail.com",
-      "requestStatus": "in",
+      "requestStatus": "In-Progress",
       "requestDetails": "gggghb",
       "id": "JBgNt97"
     },
     {
-      "customerName": "sdasda",
+      "customerName": "Mohammed",
       "customerPhone": "123123123123",
-      "customerEmail": "asdasdad@gmail.com",
+      "customerEmail": "xyz@acko.tech",
       "requestStatus": "Pending",
       "requestDetails": "adasdad",
       "id": "gTBjsf4"
     },
     {
-      "customerName": "10",
-      "customerPhone": "123123123123",
-      "customerEmail": "a@gmail.com",
-      "requestStatus": "Resolved",
-      "requestDetails": "10",
-      "id": "tC1swA7"
-    },
-    {
-      "customerName": "11",
-      "customerPhone": "123123123123",
-      "customerEmail": "p@gmail.co",
-      "requestStatus": "Resolved",
-      "requestDetails": "dasd",
-      "id": "rpFpk8z"
-    },
-    {
-      "customerName": "13",
-      "customerPhone": "123123123123",
-      "customerEmail": "a@gmail.co",
-      "requestStatus": "Pending-Resolved",
-      "requestDetails": "123",
-      "id": "SpchFfg"
-    },
-    {
-      "customerName": "hello",
-      "customerPhone": "123123123123",
-      "customerEmail": "a@gmail.com",
-      "requestStatus": "In-Progress",
-      "requestDetails": "Details2",
-      "id": "M95_GxV"
-    },
-    {
       "customerName": "Hriday",
       "customerPhone": "7393000668",
-      "customerEmail": "groverhriday@gmail.com",
-      "requestStatus": "Resolved",
-      "requestDetails": "No internet ",
-      "id": "frC2zTc"
+      "customerEmail": "xyz@gmail.com",
+      "requestStatus": "Pending",
+      "requestDetails": "Internet is not working",
+      "id": "rR09c6V"
     },
     {
       "customerName": "Grover",
-      "customerPhone": "9232312313",
+      "customerPhone": "7393000668",
       "customerEmail": "xyz@gmail.com",
       "requestStatus": "Pending",
-      "requestDetails": "Details Section content",
-      "id": "2vcQraS"
+      "requestDetails": "Mobile connection shows invalid",
+      "id": "mt2-6dO"
     }
   ]
 }

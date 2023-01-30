@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import { makeStyles, styled } from '@mui/material/styles';
@@ -17,6 +17,13 @@ import Button from '@mui/material/Button';
 import { Edit } from './Edit';
 
 import triangle from '../assests/icons/triangle.svg'
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { color } from '@mui/system';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,7 +52,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
+
 export const Home = () => {
+  const [open, setOpen] = useState(false);
+  const [deleteElement, setDeleteElement] = useState()
+  
+  const handleClickOpen = (id) => {
+    setDeleteElement(id)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //const classes = useStyles();
   let dispatch = useDispatch()
@@ -57,11 +76,13 @@ export const Home = () => {
   const{users} = useSelector(state=> state.data)
 
   const handleDelete = (id) =>{
-    if(window.confirm("Are you sure you want to delete?"))
-    {
-      console.log(`Delete initiated for for ${id}` )
-      dispatch(deleteUser(id))
-    }
+    dispatch(deleteUser(id))
+    handleClose()
+    // if(window.confirm("Are you sure you want to delete?"))
+    // {
+    //   console.log(`Delete initiated for for ${id}` )
+    //   dispatch(deleteUser(id))
+    // }
   }
   
   return (
@@ -111,7 +132,8 @@ export const Home = () => {
                     aria-label="Disabled elevation buttons">
                     <Link style={{ fontSize:'12px',  color: '#7C47E1'}} className='link' to={`request/${user.id}`}>Edit</Link>
                     <p style={{color: 'red'}} color='secondary'
-                    onClick={()=> handleDelete(user.id)}
+                    onClick={()=>handleClickOpen(user.id)}
+                    //()=> handleDelete(user.id)
                     >Delete</p>
                 </ButtonGroup>
               </StyledTableCell>
@@ -121,6 +143,30 @@ export const Home = () => {
     
      </Table>
      </TableContainer>
+
+     <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this item?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" color="success" onClick={handleClose}>No</Button>
+          <Button variant="outlined" color="error" onClick={()=>handleDelete(deleteElement)}>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
       
       
   </div>
