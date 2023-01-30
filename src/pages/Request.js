@@ -12,6 +12,8 @@ import { getSingleUser } from '../redux/actions';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 export const Request = () => {
   const [state, setState] = useState({
@@ -233,23 +235,38 @@ export const Request = () => {
       style={{padddingLeft : '30px'}} onChange={handleInputChange} id="outlined-basic" label="Status" name='requestStatus' value={requestStatus} type ="text"/> 
        */}
       
-<FormControl fullWidth>
+{/* <FormControl fullWidth>
         <InputLabel variant="standard" htmlFor="uncontrolled-native">
           Status
         </InputLabel>
-        <NativeSelect
+        <Select
         //defaultValue="In-Progress"
           value={state.requestStatus}
-          onChange = {handleInputChange}
+          onChange = {handleSelectChange}
           inputProps={{
             name:'requestStatus',
             id: 'uncontrolled-native',
           }}
         >
-          <option value={"Pending"}>Pending</option>
-          <option value={"In-Progress"}>In-Progress</option>
-          <option value={"Resolved"}>Resolved</option>
-        </NativeSelect>
+          <MenuItem value={"Pending"}>Pending</MenuItem>
+          <MenuItem value={"In-Progress"}>In-Progress</MenuItem>
+          <MenuItem value={"Resolved"}>Resolved</MenuItem>
+        </Select>
+      </FormControl> */}
+      
+      <FormControl fullWidth>
+        <InputLabel>Status</InputLabel>
+        <Select
+          id="demo-simple-select"
+          value={state.requestStatus}
+          label="Status"
+          name ='requestStatus'
+          onChange={handleInputChange}
+        >
+          <MenuItem value={"Pending"}>Pending</MenuItem>
+          <MenuItem value={"In-Progress"}>In-Progress</MenuItem>
+          <MenuItem value={"Resolved"}>Resolved</MenuItem>
+        </Select>
       </FormControl>
 
       </div>

@@ -71,6 +71,22 @@
       "requestStatus": "In-Progress",
       "requestDetails": "Details2",
       "id": "M95_GxV"
+    },
+    {
+      "customerName": "Hriday",
+      "customerPhone": "7393000668",
+      "customerEmail": "groverhriday@gmail.com",
+      "requestStatus": "Resolved",
+      "requestDetails": "No internet ",
+      "id": "frC2zTc"
+    },
+    {
+      "customerName": "Grover",
+      "customerPhone": "9232312313",
+      "customerEmail": "xyz@gmail.com",
+      "requestStatus": "Pending",
+      "requestDetails": "Details Section content",
+      "id": "2vcQraS"
     }
   ]
 }
