@@ -59,7 +59,7 @@ export const Request = () => {
   }
 
   const checkEmpty = (e) =>{
-    if(e=="")
+    if(!e)
     return true;
 
     return false
@@ -79,6 +79,13 @@ export const Request = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e)=>{
+
+    let errors = {nameHelp: "",
+    phoneHelp: "",
+    emailHelp: "",
+    statusHelp: "",
+    detailsHelp: ""}
+
     e.preventDefault();
 
     //let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -86,24 +93,40 @@ export const Request = () => {
     {
       setError("Please fill all the input fields")
     }
-    /*
+    
+    
 
-    if(!customerName)
+    if(checkEmpty(customerName))
     {
-      setHelpers({...helpers, nameHelp: "Fix"})
+      errors = {...errors, nameHelp:"Please input field"}
+    }
+    
+
+    if(checkPhone(customerPhone))
+    {
+      errors = {...errors, phoneHelp : "Please enter a valid phone number"}
+    }
+    
+
+    if(checkEmail(customerEmail))
+    {
+      errors = {...errors, emailHelp : "Please enter a valid email address"}
+    }
+    
+
+    if(checkEmpty(requestDetails))
+    {
+      errors = {...errors, detailsHelp : "Please input field"}
     }
 
-    else if(!customerPhone)
+    if(errors.nameHelp !="" || errors.emailHelp!="" || errors.phoneHelp!="" ||
+    errors.detailsHelp!="" || errors.statusHelp!="")
     {
-      setHelpers({...helpers, phoneHelp : "Fix"})
+      console.log("There is an error")
+      console.log(errors)
+      return setHelpers(errors)
     }
-
-    else if(!customerEmail)
-    {
-      setHelpers({...helpers, emailHelp : "Fix"})
-    }
-    */
-
+    
     else{
       console.log("the state to add is " + {state});
 
@@ -114,6 +137,8 @@ export const Request = () => {
 
       navigate('/')
     }
+
+    
 
   }
 
@@ -147,6 +172,11 @@ export const Request = () => {
       }
     }, [user])
 
+    if(state.requestStatus == "")
+    {
+      setState({...state,requestStatus : "Pending"})
+    }
+
   return (
     <div className='content'>
       {error}
@@ -170,7 +200,7 @@ export const Request = () => {
       <div className='inputContainer'>
       <TextField 
       fullWidth
-      error={checkEmpty(state.customerName)}
+      error={Boolean(helpers.nameHelp)}
       helperText = {helpers.nameHelp}
       onChange={handleInputChange} 
       id="outlined-basic" 
@@ -181,7 +211,7 @@ export const Request = () => {
        
       <TextField
       fullWidth
-      error = {checkPhone(state.customerPhone)}
+      error = {Boolean(helpers.phoneHelp)}
       helperText = {helpers.phoneHelp}
        onChange={handleInputChange} id="outlined-basic" label="Phone" name='customerPhone' value={customerPhone} type ="tel"
         />
@@ -191,9 +221,9 @@ export const Request = () => {
       <div className='inputContainer' >
       <TextField 
       fullWidth
+      error = {Boolean(helpers.emailHelp)}
       helperText = {helpers.emailHelp}
-      error = {checkEmail(state.customerEmail)}
-      className='leftInput' onChange={handleInputChange} id="outlined-basic" label="Email" name='customerEmail' value={customerEmail} type ="email"/>
+      className='leftInput' onChange={handleInputChange} id="outlined-basic" label="Email" name='customerEmail' value={customerEmail} type ="text"/>
       
 
       
@@ -208,15 +238,16 @@ export const Request = () => {
           Status
         </InputLabel>
         <NativeSelect
-          value={state.requestStatus? state.requestStatus : null}
+        //defaultValue="In-Progress"
+          value={state.requestStatus}
           onChange = {handleInputChange}
           inputProps={{
             name:'requestStatus',
             id: 'uncontrolled-native',
           }}
         >
-          <option value={"In-Progress"}>In-Progress</option>
           <option value={"Pending"}>Pending</option>
+          <option value={"In-Progress"}>In-Progress</option>
           <option value={"Resolved"}>Resolved</option>
         </NativeSelect>
       </FormControl>
@@ -231,7 +262,8 @@ export const Request = () => {
       >
 
       <TextField 
-      error= {checkEmpty(state.requestDetails)}
+      error= {Boolean(helpers.detailsHelp)}
+      helperText= {helpers.detailsHelp}
       className='detailsInput' 
       onChange={handleInputChange} 
       id="outlined-basic" 
