@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-
-import { makeStyles, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -11,19 +10,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector} from 'react-redux'; 
 import { deleteUser, loadUsers } from '../redux/actions';
-
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { Edit } from './Edit';
-
 import triangle from '../assests/icons/triangle.svg'
-
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { color } from '@mui/system';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,10 +43,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-
-
-
-
 export const Home = () => {
   const [open, setOpen] = useState(false);
   const [deleteElement, setDeleteElement] = useState()
@@ -66,7 +56,6 @@ export const Home = () => {
     setOpen(false);
   };
 
-  //const classes = useStyles();
   let dispatch = useDispatch()
 
   useEffect(()=> {
@@ -79,17 +68,10 @@ export const Home = () => {
   const handleDelete = (id) =>{
     dispatch(deleteUser(id))
     handleClose()
-    // if(window.confirm("Are you sure you want to delete?"))
-    // {
-    //   console.log(`Delete initiated for for ${id}` )
-    //   dispatch(deleteUser(id))
-    // }
   }
   
   return (
     <div className='content'>
-
-
       <div className='head'>
       
       <div className='introText'> 
@@ -152,9 +134,7 @@ export const Home = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title"> {"Delete"} </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure you want to delete this item?

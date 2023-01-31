@@ -1,17 +1,11 @@
-import React, {useState} from 'react'
-import Box from '@mui/material/Box';
+import {React,useState, useEffect} from 'react'
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, updateUser } from '../redux/actions';
-import { useNavigate } from 'react-router-dom';
-import { margin } from '@mui/system';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useNavigate , useParams} from 'react-router-dom';
 import { getSingleUser } from '../redux/actions';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import NativeSelect from '@mui/material/NativeSelect';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -45,15 +39,13 @@ export const Request = () => {
     buttonText = "Edit"
   }
 
-  
-
   const handleInputChange = (e) =>{
     let {name, value} = e.target
     setState({...state, [name]: value});
   }
 
   const checkPhone = (e) => {
-    if(isNaN(e) || e== "" || e.length<10)
+    if(isNaN(e) || e== "" || e.length!==10)
     {
       return true
     }
@@ -68,9 +60,8 @@ export const Request = () => {
   }
 
   const checkEmail = (e) =>{
-    //let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(e))
+    let mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(mailFormat.test(e))
     return false;
     
     return true;
@@ -89,13 +80,6 @@ export const Request = () => {
     detailsHelp: ""}
 
     e.preventDefault();
-
-    //let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!customerName || !customerPhone || !customerEmail || !requestStatus || !requestDetails)
-    {
-      return setError("Please fill all the input fields")
-    }
-    
     
 
     if(checkEmpty(customerName))
@@ -140,13 +124,7 @@ export const Request = () => {
 
       navigate('/')
     }
-
-    
-
   }
-
-  
-
 
   const {customerName, customerPhone, 
     customerEmail, requestStatus, requestDetails} = state
@@ -160,8 +138,18 @@ export const Request = () => {
 
     useEffect(() => {
       if(id && user)
-      {        
-        setState({...user, requestStatus: user?.requestStatus?.toUpperCase()})
+      { 
+        let statusConvertor
+        if(user?.requestStatus?.toUpperCase() == "IN-PROGRESS")
+        {
+          statusConvertor = "IN_PROGRESS"
+        }
+        else{
+          statusConvertor = user?.requestStatus?.toUpperCase()
+        }
+
+        setState({...user, requestStatus: statusConvertor})
+        console.log(state.requestStatus)
       }
       else 
       {
@@ -179,7 +167,6 @@ export const Request = () => {
     {
       setState({...state,requestStatus : "OPEN"})
     }
-    
 
   return (
     <div className='content'>
@@ -194,9 +181,7 @@ export const Request = () => {
     >
       <div 
       component="form"
-      // sx={{
-      //   '& .MuiTextField-root': { m: 2, width: '25ch', marginLeft: '35px'},
-      // }}
+      
       noValidate
       autoComplete="off"
       className = 'box'>
@@ -211,19 +196,18 @@ export const Request = () => {
       label="Customer Name" 
       name='customerName'
       disabled = {Boolean(id)}
-       value = {customerName} 
-       type ="text"/>
+      value = {customerName} 
+      type ="text"/>
        
       <TextField
       fullWidth
       error = {Boolean(helpers.phoneHelp)}
       helperText = {helpers.phoneHelp}
-       onChange={handleInputChange} 
-       id="outlined-basic" 
-       label="Phone" 
-       name='customerPhone' value={customerPhone} type ="tel"
-       disabled = {Boolean(id)}
-        />
+      onChange={handleInputChange} 
+      id="outlined-basic" 
+      label="Phone" 
+      name='customerPhone' value={customerPhone} type ="tel"
+      disabled = {Boolean(id)}/>
       </div>
       <br/>
       
@@ -241,33 +225,6 @@ export const Request = () => {
       type ="text"
       disabled = {Boolean(id)}/>
       
-
-      
-       {/* <TextField 
-      fullWidth
-      error = {checkEmpty(state.requestStatus)}
-      style={{padddingLeft : '30px'}} onChange={handleInputChange} id="outlined-basic" label="Status" name='requestStatus' value={requestStatus} type ="text"/> 
-       */}
-      
-{/* <FormControl fullWidth>
-        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-          Status
-        </InputLabel>
-        <Select
-        //defaultValue="In-Progress"
-          value={state.requestStatus}
-          onChange = {handleSelectChange}
-          inputProps={{
-            name:'requestStatus',
-            id: 'uncontrolled-native',
-          }}
-        >
-          <MenuItem value={"Pending"}>Pending</MenuItem>
-          <MenuItem value={"In-Progress"}>In-Progress</MenuItem>
-          <MenuItem value={"Resolved"}>Resolved</MenuItem>
-        </Select>
-      </FormControl> */}
-      
       <FormControl fullWidth>
         <InputLabel>Status</InputLabel>
         <Select
@@ -278,7 +235,7 @@ export const Request = () => {
           onChange={handleInputChange}
         >
           <MenuItem value={"OPEN"}>OPEN</MenuItem>
-          <MenuItem value={"IN_PROGRESS"}>IN_PROGRESS</MenuItem>
+          <MenuItem value={"IN_PROGRESS"}>IN-PROGRESS</MenuItem>
           <MenuItem value={"CLOSED"}>CLOSED</MenuItem>
         </Select>
       </FormControl>
@@ -286,39 +243,27 @@ export const Request = () => {
       </div>
       <br/>
 
-      <div 
-      // sx={{
-      //   '& .MuiTextField-root': { width: '63ch', height: '149px', marginLeft:'35px' },
-      // }}
-      >
-
+      <div>
       <TextField 
       error= {Boolean(helpers.detailsHelp)}
       helperText= {helpers.detailsHelp}
       className='detailsInput' 
       onChange={handleInputChange} 
       id="outlined-basic" 
-      
-      // label="Details"
-       name='requestDetails'
-        value={requestDetails} 
-        label="Details"
-          multiline
-          rows={5}
-        type ="text"/>
-
+      name='requestDetails'
+      value={requestDetails} 
+      label="Details"
+      multiline
+      rows={5}
+      type ="text"/>
       </div>
-      
       </div>
 
-     
-    {/* <Link className='link' to='/'> */}
     <div>
     <button  className='createButton' type='submit'>
         {buttonText}
       </button>
       </div>
-      {/* </Link> */}
 
     </form>
     

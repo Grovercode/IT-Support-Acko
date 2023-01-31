@@ -7,7 +7,6 @@ import { Request } from './pages/Request';
 import { NavBar } from './layouts/Navbar';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { Edit } from './pages/Edit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

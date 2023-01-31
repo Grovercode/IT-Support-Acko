@@ -27,7 +27,6 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    
   }
 
   .link{
@@ -140,13 +139,12 @@ body {
     font-weight: 600;
     font-size: 15px;
     line-height: 24px;
-
-color: #000000;
+    color: #000000;
   }
 
  .triangle{
   width: 15px;
-height: 15px;
+  height: 15px;
  }
 
 

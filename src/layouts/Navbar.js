@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assests/icons/acko-logo.svg'
 import { Navigate } from 'react-router-dom'
 
-
-
 export const NavBar = () => {
 
   const navigate = useNavigate()
