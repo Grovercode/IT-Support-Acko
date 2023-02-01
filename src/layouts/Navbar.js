@@ -11,7 +11,6 @@ export const NavBar = () => {
   }
   return (
     <NavStyle>
-    
       <NavLogo onClick={clickHandler} src={logo}/>
       <NavDiv >
         <NavLink  to='/'>Help</NavLink>

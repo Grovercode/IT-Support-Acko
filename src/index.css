@@ -37,7 +37,6 @@ body {
     line-height: 19px;
     color: black;
     cursor: pointer;
-  
   }
   p{
     margin: 0;
@@ -133,9 +132,7 @@ body {
     
     display: flex;
     align-items: center;
-    justify-content:start;
     gap: 11px;
-    margin-bottom: 23px;
     font-weight: 600;
     font-size: 15px;
     line-height: 24px;
@@ -147,6 +144,32 @@ body {
   height: 15px;
  }
 
+ .messageRow{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;  
+ }
+
+ .filterSelect
+ {
+  width:200px;
+  height: min-content;
+ }
+
+ .filter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+ }
+
+ .removeFilterButton{
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+
+ }
 
   
 

@@ -18,6 +18,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import cross from '../assests/icons/cross.svg'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,7 +51,35 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export const Home = () => {
   const [open, setOpen] = useState(false);
   const [deleteElement, setDeleteElement] = useState()
-  
+  const [filter, setFilter] = useState("")
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [crossImage , setCrossImage] = useState("")
+
+  const{users} = useSelector(state=> state.data)
+
+  let dispatch = useDispatch()
+
+
+  useEffect(()=> {
+    dispatch(loadUsers());
+  }, []);
+
+  useEffect(() => {
+
+    if(!filter)
+    {
+      setFilteredUsers(users.data)
+      setCrossImage("")
+    }
+    else
+    {
+      const list = users?.data?.filter((i) => i.requestStatus===filter)
+      setFilteredUsers(list)
+      setCrossImage({cross})
+    }
+
+  }, [filter, users])
+
   const handleClickOpen = (id) => {
     setDeleteElement(id)
     setOpen(true);
@@ -56,19 +89,20 @@ export const Home = () => {
     setOpen(false);
   };
 
-  let dispatch = useDispatch()
-
-  useEffect(()=> {
-    dispatch(loadUsers());
-  }, []);
-
-  const{users} = useSelector(state=> state.data)
-  console.log("users log is ", users.data)
+  const handleFilterChange = (e)=>{
+    setFilter(e.target.value)
+  }
 
   const handleDelete = (id) =>{
     dispatch(deleteUser(id))
     handleClose()
   }
+
+  const handleRemoveFilterButton = (id) => {
+    setFilter("")
+  }
+
+  console.log("users log is ", users.data)
   
   return (
     <div className='content'>
@@ -82,9 +116,33 @@ export const Home = () => {
       </div>
       </div>
 
-      <div className='openReqMessage'>
-        <img className='triangle' src={triangle}/>
-        <div className='openReqText'>My Open Requests</div>
+      <div className='messageRow'>
+        <div className='openReqMessage'>
+           <img className='triangle' src={triangle}/>
+           <div className='openReqText'>My Open Requests</div>
+         </div>
+
+      <div className='filter'>
+      <img 
+        style={{ visibility: filter ? "visible" : "hidden" }}
+        className='removeFilterButton' src={cross} onClick={handleRemoveFilterButton}/>
+
+      <div>
+      <FormControl className="filterSelect" >
+          <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+             <Select
+                labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                      value={filter}   
+                          label="filter"
+                            onChange={handleFilterChange}>
+                <MenuItem value={"open"}>Open</MenuItem>
+                <MenuItem value={"in-progress"}>In-Progress</MenuItem>
+                <MenuItem value={"closed"}>Closed</MenuItem>
+             </Select>
+        </FormControl>
+        </div>
+      </div>
       </div>
 
       
@@ -100,7 +158,7 @@ export const Home = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.data && users.data.map((user) => (
+          {filteredUsers && filteredUsers.map((user) => (
             <StyledTableRow key={user.requestId}>
               <StyledTableCell align="center" component="th" scope="row">
                 {user.requestId}
