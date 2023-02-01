@@ -53,7 +53,6 @@ export const Home = () => {
   const [deleteElement, setDeleteElement] = useState()
   const [filter, setFilter] = useState("")
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [crossImage , setCrossImage] = useState("")
 
   const{users} = useSelector(state=> state.data)
 
@@ -69,13 +68,11 @@ export const Home = () => {
     if(!filter)
     {
       setFilteredUsers(users.data)
-      setCrossImage("")
     }
     else
     {
       const list = users?.data?.filter((i) => i.requestStatus===filter)
       setFilteredUsers(list)
-      setCrossImage({cross})
     }
 
   }, [filter, users])
@@ -184,6 +181,7 @@ export const Home = () => {
     
      </Table>
      </TableContainer>
+     
 
      <div>
       <Dialog
