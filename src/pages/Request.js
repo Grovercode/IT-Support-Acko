@@ -1,4 +1,4 @@
-import {React,useState, useEffect} from 'react'
+import {React,useState,useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, updateUser } from '../redux/actions';
@@ -39,6 +39,56 @@ export const Request = () => {
     buttonText = "Edit"
   }
 
+
+  let dispatch = useDispatch()
+
+  const navigate = useNavigate();
+
+  const {customerName, customerPhone, 
+    customerEmail, requestStatus, requestDetails} = state
+
+  const {nameHelp, phoneHelp, emailHelp , statusHelp,
+    detailsHelp} = helpers;
+
+
+    useEffect(() => {
+      dispatch(getSingleUser(id))
+    }, [])
+
+    useEffect(() => {
+      if(id && user)
+      { 
+        let statusConvertor
+        if(user?.requestStatus?.toUpperCase() == "IN-PROGRESS")
+        {
+          statusConvertor = "IN_PROGRESS"
+        }
+        else{
+          statusConvertor = user?.requestStatus?.toUpperCase()
+        }
+
+        setState({...user, requestStatus: statusConvertor})
+        console.log(state.requestStatus)
+      }
+      else 
+      {
+        setState({
+          customerName: "",
+      customerPhone: "",
+      customerEmail: "",
+      requestStatus: "",
+      requestDetails: "",
+        })
+      }
+    }, [user])
+
+    if(state.requestStatus == "")
+    {
+      setState({...state,requestStatus : "OPEN"})
+    }
+  
+    
+
   const handleInputChange = (e) =>{
     let {name, value} = e.target
     setState({...state, [name]: value});
@@ -66,10 +116,6 @@ export const Request = () => {
     
     return true;
   }
-  
-  let dispatch = useDispatch()
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e)=>{
 
@@ -125,48 +171,6 @@ export const Request = () => {
       navigate('/')
     }
   }
-
-  const {customerName, customerPhone, 
-    customerEmail, requestStatus, requestDetails} = state
-
-    const {nameHelp, phoneHelp, emailHelp , statusHelp,
-    detailsHelp} = helpers
-
-    useEffect(() => {
-      dispatch(getSingleUser(id))
-    }, [])
-
-    useEffect(() => {
-      if(id && user)
-      { 
-        let statusConvertor
-        if(user?.requestStatus?.toUpperCase() == "IN-PROGRESS")
-        {
-          statusConvertor = "IN_PROGRESS"
-        }
-        else{
-          statusConvertor = user?.requestStatus?.toUpperCase()
-        }
-
-        setState({...user, requestStatus: statusConvertor})
-        console.log(state.requestStatus)
-      }
-      else 
-      {
-        setState({
-          customerName: "",
-      customerPhone: "",
-      customerEmail: "",
-      requestStatus: "",
-      requestDetails: "",
-        })
-      }
-    }, [user])
-
-    if(state.requestStatus == "")
-    {
-      setState({...state,requestStatus : "OPEN"})
-    }
 
   return (
     <div className='content'>
@@ -232,8 +236,7 @@ export const Request = () => {
           value={state.requestStatus}
           label="Status"
           name ='requestStatus'
-          onChange={handleInputChange}
-        >
+          onChange={handleInputChange}>
           <MenuItem value={"OPEN"}>OPEN</MenuItem>
           <MenuItem value={"IN_PROGRESS"}>IN-PROGRESS</MenuItem>
           <MenuItem value={"CLOSED"}>CLOSED</MenuItem>

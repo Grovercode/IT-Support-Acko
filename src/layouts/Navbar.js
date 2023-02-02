@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import logo from '../assests/icons/acko-logo.svg'
-import { Navigate } from 'react-router-dom'
+import { NavStyle, NavDiv, NavLink, NavLogo} from '../styled/NavStyle'
 
 export const NavBar = () => {
 
@@ -10,12 +10,12 @@ export const NavBar = () => {
     navigate('/')
   }
   return (
-    <nav>
-      <img className='ackoLogo' onClick={clickHandler} src={logo}/>
-      <div className='links'>
-        <Link className='link' to='/'>Help</Link>
-        <Link className='link' to= 'request'>Login</Link>
-        </div>
-    </nav>
+    <NavStyle>
+      <NavLogo onClick={clickHandler} src={logo}/>
+      <NavDiv >
+        <NavLink  to='/'>Help</NavLink>
+        <NavLink >Login</NavLink>
+      </NavDiv>
+    </NavStyle>
   )
 }
