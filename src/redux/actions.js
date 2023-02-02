@@ -1,6 +1,8 @@
 import * as types from './actionType'
 import axios from "axios";
 
+const GET_REQUESTS_API = "https://itservice.up.railway.app/api/requests"
+const REQUEST_ENDPOINT = "https://itservice.up.railway.app/api/request"
 
 const getUsers = (users) => ({
     type : types.GET_USERS,
@@ -17,7 +19,7 @@ const userAdded = ()=> ({
 
 const getUser = (user)=> ({
     type: types.GET_SINGLE_USER,
-    payload:user
+    payload:user.data[0]
 })
 
 const userUpdated = ()=> ({
@@ -27,7 +29,7 @@ const userUpdated = ()=> ({
 export const loadUsers = () =>{
     return function(dispatch)
     {
-        axios.get(`${"http://localhost:5000/user"}`)
+        axios.get(`${GET_REQUESTS_API}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(getUsers(resp.data))
@@ -40,7 +42,7 @@ export const deleteUser = (requestId) =>{
     
     return function(dispatch)
     {
-        axios.delete(`${"http://localhost:5000/user"}/${requestId}`)
+        axios.delete(`${REQUEST_ENDPOINT}/${requestId}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(userDeleted())
@@ -54,7 +56,7 @@ export const addUser = (user) =>{
     
     return function(dispatch)
     {
-        axios.post(`${"http://localhost:5000/user"}`, user)
+        axios.post(`${REQUEST_ENDPOINT}`, user)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(userAdded())
@@ -68,7 +70,7 @@ export const getSingleUser = (requestId) =>{
     
     return function(dispatch)
     {
-        axios.get(`${"http://localhost:5000/user"}/${requestId}`)
+        axios.get(`${REQUEST_ENDPOINT}/${requestId}`)
         .then((resp) => {
             console.log("resp", resp)
             dispatch(getUser(resp.data))
@@ -81,9 +83,9 @@ export const updateUser = (user, requestId) =>{
     
     return function(dispatch)
     {
-        axios.put(`${"http://localhost:5000/user"}/${requestId}`, user)
+        axios.put(`${REQUEST_ENDPOINT}/${requestId}`, user)
         .then((resp) => {
-            console.log("resp", resp)
+            console.log("response for update is: ", resp)
             dispatch(userUpdated())
         }).catch(error => console.log("error"))
     }
