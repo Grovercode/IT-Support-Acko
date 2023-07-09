@@ -21,6 +21,6 @@ Features CRUD operations for tickets, that is connected to backend service & use
 ![image](https://github.com/Grovercode/IT-Support-Acko/assets/57047418/7ff2ea41-f85a-40e5-b616-1461bc34d048)
 
 
-#Delete 
+# Delete 
 
 ![image](https://github.com/Grovercode/IT-Support-Acko/assets/57047418/c4c04bfe-d467-4ec9-9b2c-7e8337fc2a43)
