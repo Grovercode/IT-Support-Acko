@@ -6,14 +6,14 @@ Features CRUD operations for tickets, that is connected to backend service & use
 # Screenshots
 
 
+
+# Landing Page - Read
+![image](https://github.com/Grovercode/IT-Support-Acko/assets/57047418/1f76a8a1-f86b-4c00-b256-b342e3093119)
+
+
 # Create
 
 ![image](https://github.com/Grovercode/IT-Support-Acko/assets/57047418/23a9c408-eae9-4adb-b47a-cf6e383ed379)
-
-
-
-# Read
-![image](https://github.com/Grovercode/IT-Support-Acko/assets/57047418/1f76a8a1-f86b-4c00-b256-b342e3093119)
 
 
 # Update 
